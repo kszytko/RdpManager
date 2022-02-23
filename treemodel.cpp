@@ -43,6 +43,16 @@ QVariant TreeModel::data(const QModelIndex &index, int role) const{
     return item->getData(index.column());
 }
 
+TreeItem *TreeModel::getItem(const QModelIndex &index) const{
+    if(index.isValid()){
+        TreeItem *item = static_cast<TreeItem*>(index.internalPointer());
+        if(item)
+            return item;
+    }
+    return rootItem;
+}
+
+
 
 void TreeModel::setupModelData(const QStringList &lines, TreeItem *parent){
     QList<TreeItem *> parents;

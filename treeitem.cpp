@@ -21,3 +21,8 @@ bool TreeItem::append(TreeItem *item)
 {
     childItems.append(item);
 }
+
+
+QVariant TreeItem::getData(int column) const{
+    return itemData.at(column);
+}

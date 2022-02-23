@@ -14,7 +14,7 @@ public:
     QList<TreeItem *> children();
     TreeItem *parent();
     bool append(TreeItem* item);
-    QVariant data(int column) const;
+    QVariant getData(int column) const;
 
 private:
     QList<TreeItem *> childItems;

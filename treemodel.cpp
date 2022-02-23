@@ -1,5 +1,7 @@
 #include "treemodel.h"
 
+#include <QtWidgets>
+
 TreeModel::TreeModel(const QStringList& headers, const QString &data, QObject *parent)
     : QAbstractItemModel{parent}
 {
@@ -26,11 +28,19 @@ int TreeModel::rowCount(const QModelIndex &parent) const{
 }
 
 int TreeModel::columnCount(const QModelIndex &parent) const{
-
+    Q_UNUSED(parent);
+    return 2;
 }
 
 QVariant TreeModel::data(const QModelIndex &index, int role) const{
+    if(!index.isValid())
+        return QVariant();
 
+    if(role != Qt::DisplayRole && role != Qt::EditRole)
+        return QVariant();
+
+    TreeItem *item = getItem(index);
+    return item->getData(index.column());
 }
 
 

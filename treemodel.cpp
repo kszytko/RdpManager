@@ -16,7 +16,10 @@ TreeModel::TreeModel(const QStringList& headers, const QString &data, QObject *p
 
 
 QModelIndex TreeModel::index(int row, int column, const QModelIndex &parent) const {
+    if (parent.isValid() && parent.column() != 0)
+        return QModelIndex();
 
+    return QModelIndex();
 }
 
 QModelIndex TreeModel::parent(const QModelIndex &child) const{
@@ -24,7 +27,14 @@ QModelIndex TreeModel::parent(const QModelIndex &child) const{
 }
 
 int TreeModel::rowCount(const QModelIndex &parent) const{
+    if(parent.isValid() && parent.column() > 0)
+        return 0;
 
+    const TreeItem *parentItem = getItem(parent);
+
+    if(parentItem)
+        return parentItem->childCount();
+    return 0;
 }
 
 int TreeModel::columnCount(const QModelIndex &parent) const{

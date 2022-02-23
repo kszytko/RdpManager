@@ -9,7 +9,7 @@ class TreeModel : public QAbstractItemModel
 public:
     TreeModel(const QStringList& headers, const QString &data,
             QObject *parent = nullptr);
-    ~TreeModel();
+    ~TreeModel() = default;
 
     // QAbstractItemModel interface
 public:

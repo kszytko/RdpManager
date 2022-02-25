@@ -11,12 +11,14 @@ SOURCES += \
     main.cpp \
     mainwindow.cpp \
     treeitem.cpp \
-    treemodel.cpp
+    treemodel.cpp \
+    workpackage.cpp
 
 HEADERS += \
     mainwindow.h \
     treeitem.h \
-    treemodel.h
+    treemodel.h \
+    workpackage.h
 
 FORMS += \
     mainwindow.ui

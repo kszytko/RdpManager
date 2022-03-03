@@ -1,9 +1,8 @@
 #include "treeitem.h"
 
-TreeItem::TreeItem(const QList<QVariant> &data, TreeItem *parent) :
-    itemData(data), parentItem(parent)
+TreeItem::TreeItem(WorkPackage* _workPackage, TreeItem *parent) :
+    workPackage(_workPackage), parentItem(parent)
 {}
-
 
 int TreeItem::childCount() const{
     return childItems.count();
@@ -24,5 +23,27 @@ bool TreeItem::append(TreeItem *item)
 
 
 QVariant TreeItem::getData(int column) const{
-    return itemData.at(column);
+    if(workPackage->type == "Machine"){
+        switch (column)
+        {
+        case 0:
+           return QVariant(workPackage->machineNumber);
+        case 1:
+           return QVariant(workPackage->subject);
+        case 2:
+           return QVariant(workPackage->project);
+        }
+    }
+    else
+    {
+        switch (column)
+        {
+        case 0:
+           return QVariant(QString());
+        case 1:
+           return QVariant(workPackage->subject);
+        case 2:
+           return QVariant(workPackage->project);
+        }
+    }
 }

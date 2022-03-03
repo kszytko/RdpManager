@@ -3,11 +3,13 @@
 
 #include <QVariant>
 #include <QList>
+#include "workpackage.h"
 
 class TreeItem
 {
 public:
-    TreeItem(const QList<QVariant> &data, TreeItem *parent = nullptr);
+    TreeItem(WorkPackage* _workPackage, TreeItem *parent = nullptr);
+    TreeItem(){}
     ~TreeItem();
 
     int childCount() const;
@@ -20,6 +22,8 @@ private:
     QList<TreeItem *> childItems;
     QList<QVariant> itemData;
     TreeItem *parentItem;
+
+    WorkPackage* workPackage;
 
 };
 

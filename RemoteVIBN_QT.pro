@@ -8,14 +8,21 @@ CONFIG += c++17
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    dataloader.cpp \
+    filejsonloader.cpp \
     main.cpp \
     mainwindow.cpp \
+    restapijsonloader.cpp \
     treeitem.cpp \
     treemodel.cpp \
     workpackage.cpp
 
 HEADERS += \
+    dataloader.h \
+    filejsonloader.h \
+    jsonloader.h\
     mainwindow.h \
+    restapijsonloader.h \
     treeitem.h \
     treemodel.h \
     workpackage.h
@@ -23,7 +30,7 @@ HEADERS += \
 FORMS += \
     mainwindow.ui
 
-RESOURCES   = treemodel.qrc
+RESOURCES   = request.qrc
 CONFIG += lrelease
 
 # Default rules for deployment.

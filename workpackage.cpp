@@ -1,6 +1,7 @@
 #pragma once
 
 #include "workpackage.h"
+#include <QTextStream>
 
 WorkPackage::WorkPackage(const QJsonObject& json) {
     if (json.contains("_type") && json["_type"] == "WorkPackage") {
@@ -53,20 +54,20 @@ int WorkPackage::getInt(const QJsonValue& el) const {
 }
 
 void WorkPackage::print() const {
-    std::cout << type.constData() << "\n"
+    QTextStream(stdout) << type << "\n"
 		<< " id           :  " << id << "\n"
-        << " subject      :  " << subject.constData() << "\n"
-        << " description  :  " << description.constData() << "\n"
-        << " startDate    :  " << startDate.constData() << "\n"
-        << " dueDate      :  " << dueDate.constData() << "\n"
-        << " estimatedTime:  " << estimatedTime.constData() << "\n"
-        << " cretedAt     :  " << createdAt.constData() << "\n"
-        << " updatedAt    :  " << updatedAt.constData() << "\n"
-        << " priority     :  " << priority.constData() << "\n"
-        << " project      :  " << project.constData() << "\n"
-        << " startDate    :  " << startDate.constData() << "\n"
+        << " subject      :  " << subject << "\n"
+        << " description  :  " << description << "\n"
+        << " startDate    :  " << startDate << "\n"
+        << " dueDate      :  " << dueDate << "\n"
+        << " estimatedTime:  " << estimatedTime << "\n"
+        << " cretedAt     :  " << createdAt << "\n"
+        << " updatedAt    :  " << updatedAt << "\n"
+        << " priority     :  " << priority << "\n"
+        << " project      :  " << project << "\n"
+        << " startDate    :  " << startDate << "\n"
         << " parentID     :  " << parentID << "\n"
-        << " parentName   :  " << parentName.constData() << "\n";
+        << " parentName   :  " << parentName << "\n";
 }
 
 bool WorkPackage::isType(const QJsonObject& json, const QString& type) const{

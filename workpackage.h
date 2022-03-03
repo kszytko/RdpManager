@@ -6,6 +6,12 @@
 class WorkPackage {
 public:
     WorkPackage(const QJsonObject&);
+    WorkPackage(QString _type, int _id, int _machineNumber, QString _subject)
+        :type(_type), id(_id), subject(_subject), machineNumber(_machineNumber)
+    {}
+    WorkPackage( QString _type,  int _parentID,QString _subject)
+        : type(_type), parentID(_parentID), subject(_subject)
+    {}
 
 private:
     int getHrefID(const QJsonValue&) const;
@@ -21,7 +27,7 @@ public:
     }
 
 public:
-    int	id;
+    int	id = 0;
     QString type;
     QString subject;
     QString description;

@@ -1,3 +1,4 @@
+#pragma once
 #ifndef JSONLOADER_H
 #define JSONLOADER_H
 

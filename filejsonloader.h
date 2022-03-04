@@ -1,3 +1,5 @@
+#pragma once
+
 #ifndef FILEJSONLOADER_H
 #define FILEJSONLOADER_H
 

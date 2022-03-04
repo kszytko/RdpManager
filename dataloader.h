@@ -1,5 +1,8 @@
+#pragma once
+
 #ifndef DATALOADER_H
 #define DATALOADER_H
+
 
 #include <memory>
 #include "workpackage.h"

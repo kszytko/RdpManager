@@ -1,3 +1,4 @@
+#pragma once
 #ifndef RESTAPIJSONLOADER_H
 #define RESTAPIJSONLOADER_H
 
@@ -6,7 +7,7 @@
 class RestApiJsonLoader : public JsonLoader
 {
 public:
-    RestApiJsonLoader();
+    RestApiJsonLoader(const QString& serverAdress,const QString& apikey, const int querryID);
 
     // JsonLoader interface
 public:

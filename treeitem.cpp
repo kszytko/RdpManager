@@ -1,6 +1,6 @@
 #include "treeitem.h"
 
-TreeItem::TreeItem(WorkPackage* _workPackage, TreeItem *parent) :
+TreeItem::TreeItem(std::shared_ptr<WorkPackage> _workPackage, TreeItem *parent) :
     workPackage(_workPackage), parentItem(parent)
 {}
 
@@ -16,10 +16,12 @@ TreeItem* TreeItem::parent(){
     return parentItem;
 }
 
-bool TreeItem::append(TreeItem *item)
+bool TreeItem::append(TreeItem* item)
 {
-    childItems.append(item);
+    childItems.push_back(item);
+    return true;
 }
+
 
 
 QVariant TreeItem::getData(int column) const{
@@ -46,4 +48,9 @@ QVariant TreeItem::getData(int column) const{
            return QVariant(workPackage->project);
         }
     }
+}
+
+bool TreeItem::isParentID(const int id) const
+{
+    return workPackage->id == id;
 }

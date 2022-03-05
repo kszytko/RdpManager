@@ -33,7 +33,7 @@ QVariant TreeItem::getData(int column) const{
         case 1:
            return QVariant(workPackage->subject);
         case 2:
-           return QVariant(workPackage->project);
+           return QVariant();
         }
     }
     else
@@ -43,7 +43,7 @@ QVariant TreeItem::getData(int column) const{
         case 0:
            return QVariant(QString());
         case 1:
-           return QVariant(workPackage->subject);
+           return QVariant("  " + workPackage->subject);
         case 2:
            return QVariant(workPackage->project);
         }

@@ -20,7 +20,7 @@ MainWindow::MainWindow(QWidget *parent)
 
 
     ui->mainTreeView->setModel(model);
-
+    ui->mainTreeView->expandAll();
 
 
 }

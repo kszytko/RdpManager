@@ -35,10 +35,9 @@ WorkPackage::WorkPackage(const QJsonObject& json) {
 }
 
 int WorkPackage::getHrefID(const QJsonValue& el) const {
-    QString href = getString(el);
-    if (href.isEmpty())
+    if(el.isNull() or !el.isString())
         return 0;
-    return href.chopped(href.lastIndexOf('/')).toInt();
+    return  el.toString().section('/', -1).toInt();;
 }
 
 QString WorkPackage::getString(const QJsonValue& el) const {

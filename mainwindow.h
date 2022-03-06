@@ -16,6 +16,9 @@ public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
+private slots:
+    void on_buttonRdpWan_clicked();
+
 private:
     Ui::MainWindow *ui;
 };

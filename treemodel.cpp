@@ -7,10 +7,10 @@
 TreeModel::TreeModel(const DataLoader &dataLoader, QObject *parent)
     : QAbstractItemModel{parent}
 {
-    headers << "Number";
-    headers << "Name";
-    headers << "Text";
-
+    headers << "LP";
+    headers << "Machine";
+    headers << "Task";
+    //headers << "Project";
 
     rootItem = new TreeItem();
     setupModelData(dataLoader, rootItem);

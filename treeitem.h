@@ -23,6 +23,9 @@ public:
 
     bool isParentID(const int id) const;
 
+    std::shared_ptr<WorkPackage> getWorkPackage() const;
+    bool isMachine();
+
 private:
     QList<TreeItem*> childItems;
     QList<QVariant> itemData;

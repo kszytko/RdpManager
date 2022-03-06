@@ -32,7 +32,7 @@ QVariant TreeItem::getData(int column) const{
            return QVariant(workPackage->machineNumber);
         case 1:
            return QVariant(workPackage->subject);
-        case 2:
+        default:
            return QVariant();
         }
     }
@@ -40,12 +40,12 @@ QVariant TreeItem::getData(int column) const{
     {
         switch (column)
         {
-        case 0:
-           return QVariant(QString());
         case 1:
-           return QVariant("  " + workPackage->subject);
+           return QVariant("    " + workPackage->subject);
         case 2:
            return QVariant(workPackage->project);
+        default:
+            return QVariant();
         }
     }
 }
@@ -53,4 +53,14 @@ QVariant TreeItem::getData(int column) const{
 bool TreeItem::isParentID(const int id) const
 {
     return workPackage->id == id;
+}
+
+std::shared_ptr<WorkPackage> TreeItem::getWorkPackage() const
+{
+    return workPackage;
+}
+
+bool TreeItem::isMachine()
+{
+    return workPackage->type == "Machine";
 }

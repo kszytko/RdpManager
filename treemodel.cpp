@@ -7,8 +7,9 @@
 TreeModel::TreeModel(const DataLoader &dataLoader, QObject *parent)
     : QAbstractItemModel{parent}
 {
-    headers << "LP";
+
     headers << "Machine";
+    //headers << "LP";
     headers << "Task";
     //headers << "Project";
 

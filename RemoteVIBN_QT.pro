@@ -1,4 +1,4 @@
-QT       += widgets
+QT       += widgets network
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -25,7 +25,8 @@ HEADERS += \
     restapijsonloader.h \
     treeitem.h \
     treemodel.h \
-    workpackage.h
+    workpackage.h \
+    authdata.h
 
 FORMS += \
     mainwindow.ui

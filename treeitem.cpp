@@ -29,9 +29,9 @@ QVariant TreeItem::getData(int column) const{
         switch (column)
         {
         case 0:
-           return QVariant(workPackage->machineNumber);
+           return QVariant(QString::number(workPackage->machineNumber) + " " +  workPackage->subject);
         case 1:
-           return QVariant(workPackage->subject);
+           return QVariant("-------");
         default:
            return QVariant();
         }
@@ -40,9 +40,9 @@ QVariant TreeItem::getData(int column) const{
     {
         switch (column)
         {
+        case 0:
+           return QVariant(workPackage->subject);
         case 1:
-           return QVariant("    " + workPackage->subject);
-        case 2:
            return QVariant(workPackage->project);
         default:
             return QVariant();

@@ -10,7 +10,7 @@
 class TreeItem
 {
 public:
-    TreeItem(std::shared_ptr<WorkPackage> _workPackage, TreeItem *parent = nullptr);
+    TreeItem(WorkPackage* _workPackage, TreeItem *parent = nullptr);
     TreeItem(){}
     ~TreeItem();
 
@@ -18,12 +18,13 @@ public:
     QList<TreeItem *> children();
     TreeItem *parent();
     bool append(TreeItem* item);
+    void clear();
 
     QVariant getData(int column) const;
 
     bool isParentID(const int id) const;
 
-    std::shared_ptr<WorkPackage> getWorkPackage() const;
+    WorkPackage* getWorkPackage() const;
     bool isMachine();
 
 private:
@@ -31,7 +32,7 @@ private:
     QList<QVariant> itemData;
     TreeItem *parentItem;
 
-    std::shared_ptr<WorkPackage> workPackage;
+    WorkPackage* workPackage;
 
 };
 

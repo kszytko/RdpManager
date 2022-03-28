@@ -8,6 +8,7 @@ CONFIG += c++17
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    authhandler.cpp \
     dataloader.cpp \
     filejsonloader.cpp \
     main.cpp \
@@ -18,6 +19,7 @@ SOURCES += \
     workpackage.cpp
 
 HEADERS += \
+    authhandler.h \
     dataloader.h \
     filejsonloader.h \
     jsonloader.h\

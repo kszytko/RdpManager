@@ -1,6 +1,6 @@
 #include "treeitem.h"
 
-TreeItem::TreeItem(std::shared_ptr<WorkPackage> _workPackage, TreeItem *parent) :
+TreeItem::TreeItem(WorkPackage* _workPackage, TreeItem *parent) :
     workPackage(_workPackage), parentItem(parent)
 {}
 
@@ -20,6 +20,11 @@ bool TreeItem::append(TreeItem* item)
 {
     childItems.push_back(item);
     return true;
+}
+
+void TreeItem::clear()
+{
+    childItems.clear();
 }
 
 
@@ -55,7 +60,7 @@ bool TreeItem::isParentID(const int id) const
     return workPackage->id == id;
 }
 
-std::shared_ptr<WorkPackage> TreeItem::getWorkPackage() const
+WorkPackage* TreeItem::getWorkPackage() const
 {
     return workPackage;
 }

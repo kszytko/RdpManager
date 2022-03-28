@@ -7,11 +7,12 @@
 
 #include "treeitem.h"
 #include "dataloader.h"
+#include "workpackage.h"
 
 class TreeModel : public QAbstractItemModel
 {
 public:
-    TreeModel(const DataLoader& data, QObject *parent = nullptr);
+    TreeModel(QList<WorkPackage*> workPackages, QObject *parent = nullptr);
     ~TreeModel() = default;
 
     // QAbstractItemModel interface
@@ -22,9 +23,9 @@ public:
     int columnCount(const QModelIndex &parent) const override;
     QVariant data(const QModelIndex &index, int role) const override;
 
-private:
-    void setupModelData(const DataLoader &dataLoader, TreeItem *parent);
-    void setupModelDataList(const QStringList &lines, TreeItem *parent);
+    void updateModelData(QList<WorkPackage*> workPackages);
+private:  
+    void setupModelData(QList<WorkPackage*> workPackages, TreeItem *parent);
     TreeItem *getItem(const QModelIndex &index) const;
 
 private:

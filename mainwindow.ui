@@ -173,6 +173,7 @@
     </item>
    </layout>
   </widget>
+  <widget class="QStatusBar" name="statusBar"/>
   <action name="actionUpdate">
    <property name="text">
     <string>Update</string>

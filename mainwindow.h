@@ -12,7 +12,13 @@ QT_END_NAMESPACE
 #include "treemodel.h"
 #include "dataloader.h"
 #include "treeitem.h"
-typedef QList<std::shared_ptr<WorkPackage>> QWorkPackageList;
+#include "authhandler.h"
+
+#include <QNetworkAccessManager>
+#include <QNetworkRequest>
+#include <QNetworkReply>
+#include <QJsonDocument>
+#include <QProgressBar>
 
 class MainWindow : public QMainWindow
 {
@@ -27,11 +33,25 @@ private slots:
     void on_buttonRdpLan_clicked();
     void on_buttonTeamViewer_clicked();
     void on_buttonRefresh_clicked();
+    void downloadJson();
+    void setNewModel();
+
 
 private:
-    QWorkPackageList GetSelectedWorkPackages(QModelIndexList list);
+    QJsonDocument m_json;
+    AuthHandler* handler;
+
+    QList<WorkPackage*> GetSelectedWorkPackages(QModelIndexList list);
+
 
 private:
     Ui::MainWindow *ui;
+
+    QNetworkAccessManager *netManager;
+    QNetworkReply *netReply;
+    QNetworkReply *repoReply;
+
+    TreeModel *model;
+
 };
 #endif // MAINWINDOW_H

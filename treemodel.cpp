@@ -11,7 +11,7 @@ TreeModel::TreeModel(QList<WorkPackage*> workPackages, QObject *parent)
     headers << "Machine";
     //headers << "LP";
     headers << "Task";
-    //headers << "Project";
+    headers << "Status";
 
     rootItem = new TreeItem();
     setupModelData(workPackages, rootItem);

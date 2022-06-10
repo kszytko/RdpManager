@@ -25,16 +25,11 @@ MainWindow::MainWindow(QWidget *parent)
     ui->setupUi(this);
 
 
-    DataLoader dataLoader(":/request.json");
+    handler = new AuthHandler();
+    handler->setApiKey(AUTH::APIKEY);
+    handler->downloadData();
 
-    model = new TreeModel(dataLoader.workPackages, this);
-
-
-    ui->mainTreeView->setModel(model);
-    ui->mainTreeView->expandAll();
-    ui->mainTreeView->setRootIsDecorated(false);
-
-
+    connect(handler, &AuthHandler::dataParsed, this, &MainWindow::downloadJson);
 }
 
 MainWindow::~MainWindow()
@@ -91,24 +86,7 @@ void MainWindow::on_buttonTeamViewer_clicked()
 
 void MainWindow::on_buttonRefresh_clicked()
 {
-    //DataLoader* dataLoader = new DataLoader(AUTH::SERVER_ADRESS, AUTH::APIKEY, AUTH::QUERRY_ID);
-    //TreeModel *model = new TreeModel(*dataLoader, this);
 
-
-
-   // RestApiJsonLoader apiLoader(AUTH::SERVER_ADRESS, AUTH::APIKEY, AUTH::QUERRY_ID);
-
-    //if (!apiLoader.GetRequest())
-     //   return;
-
-
-    handler = new AuthHandler();
-
-    handler->setApiKey(AUTH::APIKEY);
-    handler->downloadData();
-
-    connect(handler, &AuthHandler::dataParsed, this, &MainWindow::downloadJson);
-   // connect(this, &MainWindow::downloadJson, this, &MainWindow::setNewModel);
 
 
 }
@@ -131,9 +109,11 @@ void MainWindow::setNewModel()
         workPackages.push_back(new WorkPackage(el.toObject()));
     }
 
-    model->updateModelData(workPackages);
+    model = new TreeModel(workPackages, this);
 
-    ui->mainTreeView->update();
+    ui->mainTreeView->setModel(model);
+    ui->mainTreeView->expandAll();
+    ui->mainTreeView->setRootIsDecorated(false);
 }
 
 

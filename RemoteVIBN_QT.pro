@@ -11,6 +11,7 @@ SOURCES += \
     authhandler.cpp \
     dataloader.cpp \
     filejsonloader.cpp \
+    logindialog.cpp \
     main.cpp \
     mainwindow.cpp \
     restapijsonloader.cpp \
@@ -23,6 +24,7 @@ HEADERS += \
     dataloader.h \
     filejsonloader.h \
     jsonloader.h\
+    logindialog.h \
     mainwindow.h \
     restapijsonloader.h \
     treeitem.h \
@@ -31,6 +33,7 @@ HEADERS += \
     authdata.h
 
 FORMS += \
+    logindialog.ui \
     mainwindow.ui
 
 RESOURCES   = request.qrc

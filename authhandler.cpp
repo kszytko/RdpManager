@@ -43,8 +43,6 @@ void AuthHandler::authenticate(QNetworkReply *reply, QAuthenticator *auth)
 
     auth->setUser("apikey");
     auth->setPassword(m_apiKey);
-
-    qDebug() << "Authenticate";
 }
 
 void AuthHandler::performGET(const QString &url)

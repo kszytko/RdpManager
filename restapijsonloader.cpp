@@ -8,11 +8,7 @@ RestApiJsonLoader::RestApiJsonLoader(const QString& serverAdress,const QString& 
 
 bool RestApiJsonLoader::GetRequest()
 {
-    QNetworkRequest request(QUrl("http://hapi.fhir.org/baseDstu3/Patient/4705560"));
-        request.setRawHeader("Content-Type", "application/fhir+json");
 
-            manager.put(request, doc.toJson());
-        }
 }
 
 QJsonDocument RestApiJsonLoader::GetParsedResponse() const

@@ -5,10 +5,16 @@
 #include <QFile>
 #include <QJsonObject>
 #include <QJsonDocument>
-
+#include <QJsonArray>
 #include <QProcess>
 
+
 #include "authdata.h"
+
+#include "workpackage.h"
+#include "restapijsonloader.h"
+#include "filejsonloader.h"
+
 
 
 
@@ -19,16 +25,11 @@ MainWindow::MainWindow(QWidget *parent)
     ui->setupUi(this);
 
 
-    DataLoader dataLoader(":/request.json");
+    handler = new AuthHandler();
+    handler->setApiKey(AUTH::APIKEY);
+    handler->downloadData();
 
-    TreeModel *model = new TreeModel(dataLoader, this);
-
-
-    ui->mainTreeView->setModel(model);
-    ui->mainTreeView->expandAll();
-    ui->mainTreeView->setRootIsDecorated(false);
-
-
+    connect(handler, &AuthHandler::dataParsed, this, &MainWindow::downloadJson);
 }
 
 MainWindow::~MainWindow()
@@ -38,7 +39,7 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_buttonRdpWan_clicked()
 {
-    QWorkPackageList workPackages = GetSelectedWorkPackages(ui->mainTreeView->selectionModel()->selectedIndexes());
+    QList<WorkPackage*> workPackages = GetSelectedWorkPackages(ui->mainTreeView->selectionModel()->selectedIndexes());
     QString program = "mstsc";
 
     for(const auto & wp : workPackages){
@@ -53,7 +54,7 @@ void MainWindow::on_buttonRdpWan_clicked()
 
 void MainWindow::on_buttonRdpLan_clicked()
 {
-    QWorkPackageList workPackages = GetSelectedWorkPackages(ui->mainTreeView->selectionModel()->selectedIndexes());
+    QList<WorkPackage*> workPackages = GetSelectedWorkPackages(ui->mainTreeView->selectionModel()->selectedIndexes());
     QString program = "mstsc";
 
     for(const auto & wp : workPackages){
@@ -67,7 +68,7 @@ void MainWindow::on_buttonRdpLan_clicked()
 
 void MainWindow::on_buttonTeamViewer_clicked()
 {
-    QWorkPackageList workPackages = GetSelectedWorkPackages(ui->mainTreeView->selectionModel()->selectedIndexes());
+    QList<WorkPackage*> workPackages = GetSelectedWorkPackages(ui->mainTreeView->selectionModel()->selectedIndexes());
     QString program = "C:\\Program Files (x86)\\TeamViewer\\TeamViewer.exe";
 
     for(const auto & wp : workPackages){
@@ -82,18 +83,43 @@ void MainWindow::on_buttonTeamViewer_clicked()
 }
 
 
+
 void MainWindow::on_buttonRefresh_clicked()
 {
-    DataLoader* dataLoader = new DataLoader(AUTH::SERVER_ADRESS, AUTH::APIKEY, AUTH::QUERRY_ID);
-    TreeModel *model = new TreeModel(*dataLoader, this);
 
 
-    ui->mainTreeView->setModel(model);
-    //ui->mainTreeView-
+
 }
 
-QWorkPackageList MainWindow::GetSelectedWorkPackages(QModelIndexList list){
-   QWorkPackageList workPackages;
+void MainWindow::downloadJson()
+{
+    m_json = handler->getParsedJson();
+
+    setNewModel();
+}
+
+void MainWindow::setNewModel()
+{
+    QList<WorkPackage*> workPackages;
+    //QJsonDocument json = apiLoader.GetParsedResponse();
+    QJsonArray jsonWorkPackages = m_json["_embedded"]["results"]["_embedded"]["elements"].toArray();
+
+    for (const auto& el : jsonWorkPackages)
+    {
+        workPackages.push_back(new WorkPackage(el.toObject()));
+    }
+
+    model = new TreeModel(workPackages, this);
+
+    ui->mainTreeView->setModel(model);
+    ui->mainTreeView->expandAll();
+    ui->mainTreeView->setRootIsDecorated(false);
+}
+
+
+
+QList<WorkPackage*> MainWindow::GetSelectedWorkPackages(QModelIndexList list){
+   QList<WorkPackage*> workPackages;
 
     for(const auto & index : list){
         if(index.column() == 0){
@@ -109,4 +135,3 @@ QWorkPackageList MainWindow::GetSelectedWorkPackages(QModelIndexList list){
         }
     }
 }
-

@@ -1,34 +1,35 @@
 #include "treemodel.h"
 
 #include <QtWidgets>
-#include "workpackage.h"
 
 
-TreeModel::TreeModel(const DataLoader &dataLoader, QObject *parent)
+
+TreeModel::TreeModel(QList<WorkPackage*> workPackages, QObject *parent)
     : QAbstractItemModel{parent}
 {
 
     headers << "Machine";
     //headers << "LP";
     headers << "Task";
-    //headers << "Project";
+    headers << "Status";
 
     rootItem = new TreeItem();
-    setupModelData(dataLoader, rootItem);
+    setupModelData(workPackages, rootItem);
 }
 
-void TreeModel::setupModelData(const DataLoader &dataLoader, TreeItem *parent){
+void TreeModel::setupModelData(QList<WorkPackage*> workPackages, TreeItem *parent){
     // setup pop music
-    for (const auto& el : dataLoader.workPackages) {
+    for (const auto& el : workPackages) {
         if (el->type == "Machine") {
             parent->append(new TreeItem(el));
         }
     }
 
+    const auto& children = parent->children();
 
-    for (const auto& el : dataLoader.workPackages) {
+    for (const auto& el : workPackages) {
         if (el->type == "MachineTask") {
-            const auto& children = parent->children();
+
             auto found = std::find_if(children.begin(), children.end(), [&](const TreeItem* node) {
                 return node->isParentID(el->parentID);
             });
@@ -42,6 +43,18 @@ void TreeModel::setupModelData(const DataLoader &dataLoader, TreeItem *parent){
 
 
 }
+
+
+void TreeModel::updateModelData(QList<WorkPackage *> workPackages)
+{
+    if(!rootItem)
+        return;
+
+    rootItem->clear();
+
+    setupModelData(workPackages, rootItem);
+}
+
 
 
 QModelIndex TreeModel::index(int row, int column, const QModelIndex &parent) const {

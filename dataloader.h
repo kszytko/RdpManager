@@ -23,7 +23,7 @@ public:
         downloadWorkPackages();
     }
 
-    QList<std::shared_ptr<WorkPackage>> workPackages;
+    QList<WorkPackage*> workPackages;
 
 private:
     void downloadWorkPackages();

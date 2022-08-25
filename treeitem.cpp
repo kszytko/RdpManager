@@ -1,6 +1,6 @@
 #include "treeitem.h"
 
-TreeItem::TreeItem(std::shared_ptr<WorkPackage> _workPackage, TreeItem *parent) :
+TreeItem::TreeItem(WorkPackage* _workPackage, TreeItem *parent) :
     workPackage(_workPackage), parentItem(parent)
 {}
 
@@ -22,6 +22,11 @@ bool TreeItem::append(TreeItem* item)
     return true;
 }
 
+void TreeItem::clear()
+{
+    childItems.clear();
+}
+
 
 
 QVariant TreeItem::getData(int column) const{
@@ -31,7 +36,7 @@ QVariant TreeItem::getData(int column) const{
         case 0:
            return QVariant(QString::number(workPackage->machineNumber) + " " +  workPackage->subject);
         case 1:
-           return QVariant("-------");
+           return QVariant();
         default:
            return QVariant();
         }
@@ -45,7 +50,7 @@ QVariant TreeItem::getData(int column) const{
         case 1:
            return QVariant(workPackage->project);
         default:
-            return QVariant();
+            return QVariant(workPackage->status);
         }
     }
 }
@@ -55,7 +60,7 @@ bool TreeItem::isParentID(const int id) const
     return workPackage->id == id;
 }
 
-std::shared_ptr<WorkPackage> TreeItem::getWorkPackage() const
+WorkPackage* TreeItem::getWorkPackage() const
 {
     return workPackage;
 }
